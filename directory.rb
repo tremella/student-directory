@@ -15,12 +15,12 @@ end
 
 
 def print(students)
-  students.each.with_index(1) do |student, index|
-    # each_with_index() != each.with_index(n)
-    if student[:name].length < 12
-      puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
-    end
-  end
+  ctr = 0
+  while ctr < students.count
+    # still choosing to index at 1.
+    puts " #{(ctr)+1}: #{students[ctr][:name]} (#{students[ctr][:cohort]} cohort)"
+    ctr +=1
+  end  
 end
 
 
