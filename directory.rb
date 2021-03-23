@@ -17,7 +17,9 @@ end
 def print(students)
   students.each.with_index(1) do |student, index|
     # each_with_index() != each.with_index(n)
-    puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name][0].downcase == 'c'
+      puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
+    end
   end
 end
 
