@@ -4,7 +4,6 @@
 # {name: "Hannibal Lecter", cohort: :november},
 # {name: "Olivia Octavius", cohort: :november},
 # {name: "Cruella De Vil", cohort: :november},
-# {name: "Randall Flagg", cohort: :november},
 # {name: "Raoul Silva", cohort: :november},
 # {name: "Bill Cypher", cohort: :november}]
 
@@ -14,11 +13,14 @@ def print_header
   puts "--------------------------------"
 end
 
+
 def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
+  students.each.with_index(1) do |student, index|
+    # each_with_index() != each.with_index(n)
+    puts "#{index}: #{student[:name]} (#{student[:cohort]} cohort)"
   end
 end
+
 
 def print_footer(names)
   puts "Overall we have #{names.count} diabolical students"
