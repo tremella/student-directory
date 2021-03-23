@@ -23,19 +23,35 @@ end
 def print_footer(names)
   puts "Overall we have #{names.count} diabolical students".center(40)
 end
-
+# default values
+# (name="unnamed", cohort="unassigned", hobby="unknown", nationality="unknown")
 def input_students
   puts "Let's add some student info."
   students = []
   finished_listing = false
+  
+  # this is to handle blank values
+  def default(attribute, default_value) 
+    if attribute == ''
+      return default_value
+    else
+      return attribute
+    end
+  end
+  
   while finished_listing == false
     puts "Student name?"
-    name = gets.chomp # capitalize makes this "Name surname" so I didn't use it.
+    s_name = default(gets.chomp, "UNNAMED")
+    # to be tricky, we *could* validate the attribute by assigning the outcome of a TERN to it.
+    # name = gets.chomp
+    # name = (name == '') ? 'UNNAMED' : name 
+    puts "Student cohort?"
+    s_cohort = default(gets.chomp.capitalize, "UNASSIGNED")
     puts "Student hobby?"
-    hobby = gets.chomp.capitalize
+    s_hobby = default(gets.chomp.capitalize, "UNKNOWN")
     puts "Student nationality?"
-    nationality = gets.chomp.capitalize
-    students << {name: name, cohort: :November, hobby: hobby, nationality: nationality}
+    s_nationality = default(gets.chomp.capitalize, "UNKNOWN")
+    students << {name: s_name, cohort: s_cohort.to_sym, hobby: s_hobby, nationality: s_nationality}
     puts "Finished adding students? if so, press 'y' - if not, press any other key."
     finished = gets.chomp.downcase
     if finished == 'y'
