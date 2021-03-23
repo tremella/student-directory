@@ -49,20 +49,6 @@ def input_students
   students
 end
   
-# puts "Please enter the names of the students"
-# puts "to finish, just hit return (enter) twice"
-# students = []
-# #get first name
-# name = gets.chomp
-# #while name isn't an empty string, keep asking for more.
-# while !name.empty? do 
-#   students << {name: name, cohort: :november}
-#   puts "now we have #{students.count} students"
-#   # get another student - and make name empty (loop breaks)
-#   name = gets.chomp
-#end
-#students
-#end
 students = input_students
 print_header
 print(students)
