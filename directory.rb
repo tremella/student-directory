@@ -1,18 +1,14 @@
-# first, let's print the list of students
+# template students
 
 # students = [
 # {name: "Hannibal Lecter", cohort: :november},
-# {name: "Olivia Octavius", cohort: :november},
-# {name: "Cruella De Vil", cohort: :november},
-# {name: "Raoul Silva", cohort: :november},
-# {name: "Bill Cypher", cohort: :november}]
+# {name: "Cruella De Vil", cohort: :november}]
 
 
 def print_header
   puts "The students of Villains Academy"
   puts "--------------------------------"
 end
-
 
 def print(students)
   ctr = 0
@@ -22,7 +18,6 @@ def print(students)
     ctr +=1
   end  
 end
-
 
 def print_footer(names)
   puts "Overall we have #{names.count} diabolical students"
