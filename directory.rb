@@ -29,20 +29,39 @@ def print_footer(names)
 end
 
 def input_students
-puts "Please enter the names of the students"
-puts "to finish, just hit return (enter) twice"
-students = []
-#get first name
-name = gets.chomp
-#while name isn't an empty string, keep asking for more.
-while !name.empty? do 
-  students << {name: name, cohort: :november}
-  puts "now we have #{students.count} students"
-  # get another student - and make name empty (loop breaks)
-  name = gets.chomp
+  students = []
+  finished_listing = false
+  while finished_listing == false
+    puts "Student name?"
+    name = gets.chomp
+    puts "Student hobby?"
+    hobby = gets.chomp
+    puts "Student nationality?"
+    nationality = gets.chomp
+    students << {name: name, cohort: :november, hobby: hobby, nationality: nationality}
+    puts "Finished adding students? if so, press, Y, else any other key."
+    finished = gets.chomp.downcase
+    if finished == 'y'
+      finished_listing = true
+    end
+  end
+  students
 end
-students
-end
+  
+# puts "Please enter the names of the students"
+# puts "to finish, just hit return (enter) twice"
+# students = []
+# #get first name
+# name = gets.chomp
+# #while name isn't an empty string, keep asking for more.
+# while !name.empty? do 
+#   students << {name: name, cohort: :november}
+#   puts "now we have #{students.count} students"
+#   # get another student - and make name empty (loop breaks)
+#   name = gets.chomp
+#end
+#students
+#end
 students = input_students
 print_header
 print(students)
