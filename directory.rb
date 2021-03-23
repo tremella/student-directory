@@ -3,15 +3,15 @@
 students = [
 'Dr Hannibal Lecter',
 'Darth Vader',
-'Nurse Ratched',
-'Michael Corleone',
-'Alex DeLarge',
-'The Wicked Witch of the West',
-'The Terminator',
-'Freddy Krueger',
-'The Joker',
+'Annie Wilkes',
+'Dr Olivia Octavius',
+'Bill Cypher',
+'Dolores Umbridge',
+'Cruella De Vil',
+'Randall Flagg',
+'Poison Ivy',
 'Joffrey Baratheon',
-'Norman Bates']
+'Raoul Silva']
 
 
 def print_header
