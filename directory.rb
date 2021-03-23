@@ -45,8 +45,17 @@ def input_students
     # to be tricky, we *could* validate the attribute by assigning the outcome of a TERN to it.
     # name = gets.chomp
     # name = (name == '') ? 'UNNAMED' : name 
-    puts "Student cohort?"
-    s_cohort = default(gets.chomp.capitalize, "UNASSIGNED")
+    # now to handle cohort
+    valid_cohort_choice = false
+    valid_cohorts = ["January", "February","March","April","May","June",
+      "July","August","September","October","November","December"]
+    while valid_cohort_choice == false
+      puts "Student cohort?"
+      s_cohort = default(gets.chomp.capitalize, "UNASSIGNED")
+      if s_cohort == "UNASSIGNED" || valid_cohorts.include?(s_cohort)
+        valid_cohort_choice = true
+      end
+    end
     puts "Student hobby?"
     s_hobby = default(gets.chomp.capitalize, "UNKNOWN")
     puts "Student nationality?"
