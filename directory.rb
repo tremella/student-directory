@@ -36,12 +36,10 @@ def validate_cohort_choice()
   end
 end
 
-# function to print only the students of a chosen cohort
-# bug: probably can't reliably select unassigned students.
 def print_by_cohort(students)
 # this should take in a list of all existing students, 
 # and print only the students of a selected cohort.
-  puts "Which cohort would you like to print?"
+  puts "Which cohort would you like to print? \n (type a month, or press ENTER for UNASSIGNED)"
   cohort_to_print = validate_cohort_choice()
   puts "Students in the #{cohort_to_print} cohort:"
   students.each do |student| 
@@ -51,8 +49,8 @@ def print_by_cohort(students)
   end
 end
 
-def print_footer(names)
-  puts "Overall we have #{names.count} diabolical students".center(40)
+def print_footer(arr)
+  arr.count <= 1 ? (puts "Overall we have #{arr.count} diabolical student".center(40)) : (puts "Overall we have #{arr.count} diabolical students".center(40))
 end
 
 # this creates the array of students
@@ -72,20 +70,17 @@ def input_students
   
   while finished_listing == false
     puts "Student name?"
-    s_name = default(gets.chomp, "UNNAMED")
-    # to be tricky, we *could* validate the attribute by assigning the outcome of a TERN to it.
-    # name = gets.chomp
-    # name = (name == '') ? 'UNNAMED' : name
+    s_name = default(gets.strip, "UNNAMED") # this is a helper function 
     puts "Student cohort?"
-    s_cohort = validate_cohort_choice()
+    s_cohort = validate_cohort_choice() # this is a different helper function
     puts "Student hobby?"
-    s_hobby = default(gets.chomp.capitalize, "UNKNOWN")
+    s_hobby = default(gets.strip.capitalize, "UNKNOWN") # helper func
     puts "Student nationality?"
-    s_nationality = default(gets.chomp.capitalize, "UNKNOWN")
+    s_nationality = default(gets.strip.capitalize, "UNKNOWN") # helper func
     students << {name: s_name, cohort: s_cohort.to_sym, hobby: s_hobby, nationality: s_nationality}
-    students.count <= 1 ? (puts "we have #{students.count} student") : (puts "we have #{students.count} students")
+    students.count <= 1 ? (puts "Now we have #{students.count} student") : (puts "Now we have #{students.count} students")
     puts "Finished adding students? if so, press 'y' - if not, press any other key."
-    finished = gets.chomp.downcase
+    finished = gets.strip.downcase
     if finished == 'y'
       finished_listing = true
     end
