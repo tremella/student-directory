@@ -83,6 +83,7 @@ def input_students
     puts "Student nationality?"
     s_nationality = default(gets.chomp.capitalize, "UNKNOWN")
     students << {name: s_name, cohort: s_cohort.to_sym, hobby: s_hobby, nationality: s_nationality}
+    students.count <= 1 ? (puts "we have #{students.count} student") : (puts "we have #{students.count} students")
     puts "Finished adding students? if so, press 'y' - if not, press any other key."
     finished = gets.chomp.downcase
     if finished == 'y'
