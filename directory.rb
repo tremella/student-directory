@@ -1,9 +1,4 @@
-# template students
-
-# students = [
-# {name: "Hannibal Lecter", cohort: :november},
-# {name: "Cruella De Vil", cohort: :november}]
-
+# students: Cruella De Vil, Hannibal Lecter, Hamburglar.
 
 def print_header
   puts "The students of Villains Academy".center(35)
@@ -95,8 +90,30 @@ def input_students
   end
   students
 end
-  
-students = input_students
-print_header
-print(students)
-print_footer(students)
+
+def interactive_menu
+  students = []
+  loop do
+    puts "1. input students"
+    puts "2. display all students"
+    puts "9. exit"
+    selection = gets.chomp
+    case selection
+      when "1"
+        students = input_students
+      when "2"
+        print_header
+        print(students)
+        print_footer(students)
+      when "9"
+        exit
+      else
+        puts "invalid input, try again"
+    end
+  end
+end
+
+interactive_menu()
+
+
+
