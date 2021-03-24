@@ -20,11 +20,35 @@ def print(students)
   end  
 end
 
+def validate_cohort_choice()
+# this should prevent cohort selection errors
+# Used twice: print_by_cohort() and input_students()
+  valid_cohort_choice = false
+  valid_cohorts = ["January", "February","March","April","May","June",
+    "July","August","September","October","November","December"]
+  while valid_cohort_choice == false
+    puts "Student cohort?"
+    cohort = default(gets.chomp.capitalize, "UNASSIGNED")
+    if cohort == "UNASSIGNED" || valid_cohorts.include?(cohort)
+      valid_cohort_choice = true
+      return cohort
+    end
+  end
+end
+
+def print_by_cohort(students)
+# this should take in a list of all existing students, 
+# and print only the students of a selected cohort.
+
+end
+
 def print_footer(names)
   puts "Overall we have #{names.count} diabolical students".center(40)
 end
 # default values
 # (name="unnamed", cohort="unassigned", hobby="unknown", nationality="unknown")
+
+# this creates the array of students
 def input_students
   puts "Let's add some student info."
   students = []
@@ -45,17 +69,8 @@ def input_students
     # to be tricky, we *could* validate the attribute by assigning the outcome of a TERN to it.
     # name = gets.chomp
     # name = (name == '') ? 'UNNAMED' : name 
-    # now to handle cohort
-    valid_cohort_choice = false
-    valid_cohorts = ["January", "February","March","April","May","June",
-      "July","August","September","October","November","December"]
-    while valid_cohort_choice == false
-      puts "Student cohort?"
-      s_cohort = default(gets.chomp.capitalize, "UNASSIGNED")
-      if s_cohort == "UNASSIGNED" || valid_cohorts.include?(s_cohort)
-        valid_cohort_choice = true
-      end
-    end
+    s_cohort = validate_cohort_choice()
+    
     puts "Student hobby?"
     s_hobby = default(gets.chomp.capitalize, "UNKNOWN")
     puts "Student nationality?"
