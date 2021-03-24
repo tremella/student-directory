@@ -11,13 +11,17 @@ def print_header
 end
 
 def print(students)
-  ctr = 0
-  while ctr < students.count
-    # still choosing to index at 1.
-    puts " #{(ctr)+1}: #{students[ctr][:name]} (#{students[ctr][:cohort]} cohort). 
-    Hobby: #{students[ctr][:hobby]}. Nationality: #{students[ctr][:nationality]}".center(50)
-    ctr +=1
-  end  
+  if students.count == 1 && students[0][:name] == 'UNNAMED'
+    puts "no students to print"
+  else
+    ctr = 0
+    while ctr < students.count
+      # still choosing to index at 1.
+      puts " #{(ctr)+1}: #{students[ctr][:name]} (#{students[ctr][:cohort]} cohort). 
+      Hobby: #{students[ctr][:hobby]}. Nationality: #{students[ctr][:nationality]}".center(50)
+      ctr +=1
+    end 
+  end
 end
 
 # reusable function to prevent cohort selection errors
@@ -50,7 +54,11 @@ def print_by_cohort(students)
 end
 
 def print_footer(arr)
+  if arr.count == 1 && arr[0][:name] == 'UNNAMED'
+    puts "no students to print"
+  else
   arr.count <= 1 ? (puts "Overall we have #{arr.count} diabolical student".center(40)) : (puts "Overall we have #{arr.count} diabolical students".center(40))
+  end
 end
 
 # this creates the array of students
@@ -90,5 +98,5 @@ end
   
 students = input_students
 print_header
-print_by_cohort(students)
+print(students)
 print_footer(students)
