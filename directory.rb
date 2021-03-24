@@ -12,7 +12,7 @@ end
 
 def print(students)
   if students.count == 1 && students[0][:name] == 'UNNAMED'
-    puts "no students to print"
+    puts "No students to print"
   else
     ctr = 0
     while ctr < students.count
@@ -55,7 +55,7 @@ end
 
 def print_footer(arr)
   if arr.count == 1 && arr[0][:name] == 'UNNAMED'
-    puts "no students to print"
+    puts "We have no diabolical students :( "
   else
   arr.count <= 1 ? (puts "Overall we have #{arr.count} diabolical student".center(40)) : (puts "Overall we have #{arr.count} diabolical students".center(40))
   end
