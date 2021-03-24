@@ -20,14 +20,14 @@ def print(students)
   end  
 end
 
+# reusable function to prevent cohort selection errors
 def validate_cohort_choice()
-# this should prevent cohort selection errors
 # Used twice: print_by_cohort() and input_students()
   valid_cohort_choice = false
   valid_cohorts = ["January", "February","March","April","May","June",
     "July","August","September","October","November","December"]
   while valid_cohort_choice == false
-    puts "Student cohort?"
+    puts "(Full month name, please)"
     cohort = default(gets.chomp.capitalize, "UNASSIGNED")
     if cohort == "UNASSIGNED" || valid_cohorts.include?(cohort)
       valid_cohort_choice = true
@@ -36,17 +36,24 @@ def validate_cohort_choice()
   end
 end
 
+# function to print only the students of a chosen cohort
+# bug: probably can't reliably select unassigned students.
 def print_by_cohort(students)
 # this should take in a list of all existing students, 
 # and print only the students of a selected cohort.
-
+  puts "Which cohort would you like to print?"
+  cohort_to_print = validate_cohort_choice()
+  puts "Students in the #{cohort_to_print} cohort:"
+  students.each do |student| 
+    if student[:cohort] == cohort_to_print.to_sym 
+      puts "#{student[:name]}. Hobby: #{student[:hobby]}, Nationality: #{student[:nationality]}"
+    end
+  end
 end
 
 def print_footer(names)
   puts "Overall we have #{names.count} diabolical students".center(40)
 end
-# default values
-# (name="unnamed", cohort="unassigned", hobby="unknown", nationality="unknown")
 
 # this creates the array of students
 def input_students
@@ -68,9 +75,9 @@ def input_students
     s_name = default(gets.chomp, "UNNAMED")
     # to be tricky, we *could* validate the attribute by assigning the outcome of a TERN to it.
     # name = gets.chomp
-    # name = (name == '') ? 'UNNAMED' : name 
+    # name = (name == '') ? 'UNNAMED' : name
+    puts "Student cohort?"
     s_cohort = validate_cohort_choice()
-    
     puts "Student hobby?"
     s_hobby = default(gets.chomp.capitalize, "UNKNOWN")
     puts "Student nationality?"
@@ -87,5 +94,5 @@ end
   
 students = input_students
 print_header
-print(students)
+print_by_cohort(students)
 print_footer(students)
