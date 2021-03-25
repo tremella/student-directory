@@ -35,18 +35,20 @@ def validate_cohort_choice()
   end
 end
 
-def print_by_cohort
-# this should take in a list of all existing students, 
-# and print only the students of a selected cohort.
-  puts "Which cohort would you like to print? \n (type a month, or press ENTER for UNASSIGNED)"
-  cohort_to_print = validate_cohort_choice()
-  puts "Students in the #{cohort_to_print} cohort:"
-  @students.each do |student| 
-    if student[:cohort] == cohort_to_print.to_sym 
-      puts "#{student[:name]}. Hobby: #{student[:hobby]}, Nationality: #{student[:nationality]}"
-    end
-  end
-end
+# commented out because it seems un-needed by future activities
+# should integrate this when finished
+# def print_by_cohort
+# # this should take in a list of all existing students, 
+# # and print only the students of a selected cohort.
+#   puts "Which cohort would you like to print? \n (type a month, or press ENTER for UNASSIGNED)"
+#   cohort_to_print = validate_cohort_choice()
+#   puts "Students in the #{cohort_to_print} cohort:"
+#   @students.each do |student| 
+#     if student[:cohort] == cohort_to_print.to_sym 
+#       puts "#{student[:name]}. Hobby: #{student[:hobby]}, Nationality: #{student[:nationality]}"
+#     end
+#   end
+# end
 
 def print_footer
   if @students.count == 1 && @students[0][:name] == 'UNNAMED'
