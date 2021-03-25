@@ -91,9 +91,20 @@ def input_students
   # students # this is now a global variable
 end
 
+def save_students
+  file = File.open("students.csv","w")
+  @students.each do |student|
+    student_data = [student[:name], student[:cohort], student[:hobby], student[:nationality]]
+    csv_line = student_data.join(",")
+    file.puts csv_line
+  end
+  file.close
+end
+
 def print_menu
     puts "1. input students"
     puts "2. display all students"
+    puts "3. save the list of students to students.csv"
     puts "9. exit"
 end
 
@@ -109,6 +120,8 @@ def process(selection)
       input_students
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit
     else
