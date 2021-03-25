@@ -1,4 +1,5 @@
 # students: Cruella De Vil, Hannibal Lecter, Hamburglar.
+
 @students = []
 def print_header
   puts "The students of Villains Academy".center(35)
@@ -14,6 +15,7 @@ def print_students_list
       # still choosing to index at 1.
       puts " #{(ctr)+1}: #{@students[ctr][:name]} (#{@students[ctr][:cohort]} cohort). 
       Hobby: #{@students[ctr][:hobby]}. Nationality: #{@students[ctr][:nationality]}".center(50)
+      puts "\n"
       ctr +=1
     end 
   end
@@ -27,7 +29,7 @@ def validate_cohort_choice()
     "July","August","September","October","November","December"]
   while valid_cohort_choice == false
     puts "(Full month name, please)"
-    cohort = default(gets.chomp.capitalize, "UNASSIGNED")
+    cohort = default(STDIN.gets.chomp.capitalize, "UNASSIGNED")
     if cohort == "UNASSIGNED" || valid_cohorts.include?(cohort)
       valid_cohort_choice = true
       return cohort
@@ -52,9 +54,9 @@ end
 
 def print_footer
   if @students.count == 1 && @students[0][:name] == 'UNNAMED'
-    puts "We have no diabolical students :( "
+    puts "We have no diabolical students :( \n "
   else
-  @students.count <= 1 ? (puts "Overall we have #{@students.count} diabolical student".center(40)) : (puts "Overall we have #{@students.count} diabolical students".center(40))
+  @students.count <= 1 ? (puts "Overall we have #{@students.count} diabolical student \n".center(40)) : (puts "Overall we have #{@students.count} diabolical students".center(40))
   end
 end
 
@@ -75,17 +77,17 @@ def input_students
   
   while finished_listing == false
     puts "Student name?"
-    s_name = default(gets.strip, "UNNAMED") # this is a helper function 
+    s_name = default(STDIN.gets.strip, "UNNAMED") # this is a helper function 
     puts "Student cohort?"
     s_cohort = validate_cohort_choice() # this is a different helper function
     puts "Student hobby?"
-    s_hobby = default(gets.strip.capitalize, "UNKNOWN") # helper func
+    s_hobby = default(STDIN.gets.strip.capitalize, "UNKNOWN") # helper func
     puts "Student nationality?"
-    s_nationality = default(gets.strip.capitalize, "UNKNOWN") # helper func
+    s_nationality = default(STDIN.gets.strip.capitalize, "UNKNOWN") # helper func
     @students << {name: s_name, cohort: s_cohort.to_sym, hobby: s_hobby, nationality: s_nationality}
     @students.count <= 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
     puts "Finished adding students? if so, press 'y' - if not, press any other key."
-    finished = gets.strip.downcase
+    finished = STDIN.gets.strip.downcase
     if finished == 'y'
       finished_listing = true
     end
@@ -103,13 +105,25 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv") # default value if load_students isn't called with sth else
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort, hobby, nationality = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym, hobby: hobby, nationality: nationality}
   end
   file.close
+end
+
+def try_load_students # based around optional ARGV on command line
+  filename = ARGV.first # first arg from command line
+  return if filename.nil? # exit early if no ARGV given
+  if File.exists?(filename) 
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
 end
 
 def print_menu
@@ -146,11 +160,15 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
-interactive_menu()
+# if we want to override the default ("students.csv")
+# load_students("dropouts.csv")
+# show_students()
 
+try_load_students
+interactive_menu
 
 
