@@ -102,6 +102,7 @@ def save_students
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  puts "saved #{@students.count} students to students.csv"
   file.close
 end
 
@@ -109,7 +110,9 @@ def merge_into_students_arr(n,c,h,nat)
   @students << {name: n, cohort: c.to_sym, hobby: h, nationality: nat} # helper function to merge student to students arr
 end
 
-def load_students(filename = "students.csv") # default value if load_students isn't called with sth else
+# this is no longer in the options menu, but is still important elsewhere
+# it includes a default value, too. 
+def load_students(filename = "students.csv") 
   file = File.open(filename, "r")
   file.readlines.each do |line|
     x = line.chomp.split(',')
@@ -171,9 +174,6 @@ def interactive_menu
     process(STDIN.gets.chomp)
   end
 end
-
-# load_students("dropouts.csv")
-# show_students()
 
 try_load_students
 interactive_menu
