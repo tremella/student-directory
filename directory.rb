@@ -74,7 +74,7 @@ def input_students
       return attribute
     end
   end
-  
+  ## START EDITS
   while finished_listing == false
     puts "Student name?"
     s_name = default(STDIN.gets.strip, "UNNAMED") # this is a helper function 
@@ -84,7 +84,7 @@ def input_students
     s_hobby = default(STDIN.gets.strip.capitalize, "UNKNOWN") # helper func
     puts "Student nationality?"
     s_nationality = default(STDIN.gets.strip.capitalize, "UNKNOWN") # helper func
-    @students << {name: s_name, cohort: s_cohort.to_sym, hobby: s_hobby, nationality: s_nationality}
+    merge_into_students_arr(s_name, s_cohort, s_hobby, s_nationality) # this adds the data.
     @students.count <= 1 ? (puts "Now we have #{@students.count} student") : (puts "Now we have #{@students.count} students")
     puts "Finished adding students? if so, press 'y' - if not, press any other key."
     finished = STDIN.gets.strip.downcase
@@ -105,11 +105,15 @@ def save_students
   file.close
 end
 
+def merge_into_students_arr(n,c,h,nat)
+  @students << {name: n, cohort: c.to_sym, hobby: h, nationality: nat} # helper function to merge student to students list
+end
+
 def load_students(filename = "students.csv") # default value if load_students isn't called with sth else
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort, hobby, nationality = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym, hobby: hobby, nationality: nationality}
+    x = line.chomp.split(',')
+    merge_into_students_arr(x[0],x[1],x[2],x[3])
   end
   file.close
 end
