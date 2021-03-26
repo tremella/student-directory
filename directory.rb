@@ -37,6 +37,12 @@ def validate_cohort_choice()
   end
 end
 
+def choose_filename()
+  puts "filename please"
+  choice = gets.chomp
+  choice
+end
+
 # commented out because it seems un-needed by future activities
 # should integrate this when finished
 # def print_by_cohort
@@ -96,7 +102,8 @@ def input_students
 end
 
 def save_students
-  file = File.open("students.csv","w")
+  filename = choose_filename()
+  file = File.open(filename,"w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort], student[:hobby], student[:nationality]]
     csv_line = student_data.join(",")
@@ -112,12 +119,18 @@ end
 
 # this is no longer in the options menu, but is still important elsewhere
 # it includes a default value, too. 
-def load_students(filename = "students.csv") 
+def load_students()
+  filename = choose_filename()
+  if !(File.exists?(filename))
+    puts "invalid choice"
+    exit
+  end
   file = File.open(filename, "r")
   file.readlines.each do |line|
     x = line.chomp.split(',')
     merge_into_students_arr(x[0],x[1],x[2],x[3])
   end
+  puts "Success - loaded more students"
   file.close
 end
 
@@ -129,7 +142,7 @@ def try_load_students # based around optional ARGV on command line
     filename = "students.csv"
   end
   if File.exists?(filename) 
-    load_students(filename)
+    load_students()
     puts "Loaded #{@students.count} from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
@@ -140,8 +153,8 @@ end
 def print_menu
     puts "1. input students"
     puts "2. display all students"
-    puts "3. save the list of students to students.csv"
-    #puts "4. load the list of students from students.csv"
+    puts "3. save the list of students to (input file name)"
+    puts "4. load the list of students from (input file name)"
     puts "9. exit"
 end
 
@@ -159,8 +172,8 @@ def process(selection)
       show_students
     when "3"
       save_students
-    #when "4"
-      #load_students
+    when "4"
+      load_students
     when "9"
       exit
     else
@@ -175,7 +188,7 @@ def interactive_menu
   end
 end
 
-try_load_students
+# try_load_students
 interactive_menu
 
 
