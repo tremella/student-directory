@@ -1,5 +1,5 @@
 # students: Cruella De Vil, Hannibal Lecter, Hamburglar.
-
+require 'csv'
 @students = []
 def print_header
   puts "The students of Villains Academy".center(35)
@@ -125,13 +125,12 @@ def load_students()
     puts "invalid choice"
     exit
   end
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    x = line.chomp.split(',')
-    merge_into_students_arr(x[0],x[1],x[2],x[3])
+  file = CSV.read(filename)
+  puts file[0].class
+  file.each do |line|
+    merge_into_students_arr(line[0],line[1],line[2],line[3])
   end
   puts "Success - loaded more students"
-  file.close
 end
 
 def try_load_students # based around optional ARGV on command line
