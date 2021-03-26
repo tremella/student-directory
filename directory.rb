@@ -44,7 +44,8 @@ def choose_filename()
 end
 
 # commented out because it seems un-needed by future activities
-# should integrate this when finished
+# consider re-integrating.
+
 # def print_by_cohort
 # # this should take in a list of all existing students, 
 # # and print only the students of a selected cohort.
@@ -187,7 +188,6 @@ def interactive_menu
   end
 end
 
-# try_load_students
 interactive_menu
 
 
