@@ -106,7 +106,7 @@ def save_students
 end
 
 def merge_into_students_arr(n,c,h,nat)
-  @students << {name: n, cohort: c.to_sym, hobby: h, nationality: nat} # helper function to merge student to students list
+  @students << {name: n, cohort: c.to_sym, hobby: h, nationality: nat} # helper function to merge student to students arr
 end
 
 def load_students(filename = "students.csv") # default value if load_students isn't called with sth else
@@ -120,7 +120,11 @@ end
 
 def try_load_students # based around optional ARGV on command line
   filename = ARGV.first # first arg from command line
-  return if filename.nil? # exit early if no ARGV given
+  # return if filename.nil? # exit early if no ARGV given
+  # commented out so students.csv is default if no file given
+  if filename.nil?
+    filename = "students.csv"
+  end
   if File.exists?(filename) 
     load_students(filename)
     puts "Loaded #{@students.count} from #{filename}"
@@ -134,7 +138,7 @@ def print_menu
     puts "1. input students"
     puts "2. display all students"
     puts "3. save the list of students to students.csv"
-    puts "4. load the list of students from students.csv"
+    #puts "4. load the list of students from students.csv"
     puts "9. exit"
 end
 
@@ -152,8 +156,8 @@ def process(selection)
       show_students
     when "3"
       save_students
-    when "4"
-      load_students
+    #when "4"
+      #load_students
     when "9"
       exit
     else
@@ -168,7 +172,6 @@ def interactive_menu
   end
 end
 
-# if we want to override the default ("students.csv")
 # load_students("dropouts.csv")
 # show_students()
 
